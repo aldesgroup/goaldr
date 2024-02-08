@@ -85,6 +85,6 @@ Since we're talking about publishing:
 - make sure `"private": true` is removed.
 - do an `npm init`, but make sure to remove the `dependencies` added by this process.
 
-Also, check the plugins and the `""simple-import-sort/imports""` config tag added to automatically format the imports in a "standard" way.
+Regarding style, check that in [the .eslintrc.cjs](../.eslintrc.cjs) the plugins and the `""simple-import-sort/imports""` config tag added to automatically format the imports in a "standard" way.
 
 [top](#design--development-notes)
