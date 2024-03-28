@@ -1,1 +1,1 @@
-export { GLabel } from "./components/GLabel";
+export { WithIntro } from "./components/WithIntro";
