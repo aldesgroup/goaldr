@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
 import { useAuth, Visibility } from "../../utils/auth";
-import { Separator } from "../ui/separator";
 
 interface menuEntry {
     Break: boolean;
@@ -72,13 +71,7 @@ export function Menu(props: MenuProps) {
                         index < entries.length - 1 &&
                         !entries[index - 1].Break
                     ) {
-                        return (
-                            <Separator
-                                decorative
-                                className="border-b"
-                                key={index}
-                            />
-                        );
+                        return <hr />;
                     }
                 } else {
                     return (

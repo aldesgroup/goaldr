@@ -30,7 +30,6 @@ export {
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
 } from "./components/ui/dropdown-menu";
-export { Separator } from "./components/ui/separator";
 
 // Base applicative components
 export type { MenuProps } from "./components/app/Menu";
