@@ -71,7 +71,7 @@ export function Menu(props: MenuProps) {
                         index < entries.length - 1 &&
                         !entries[index - 1].Break
                     ) {
-                        return <hr />;
+                        return <hr key={index} />;
                     }
                 } else {
                     return (
