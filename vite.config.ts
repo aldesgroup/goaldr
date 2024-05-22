@@ -26,7 +26,7 @@ export default defineConfig({
     copyPublicDir: false,
     rollupOptions: {
       // this library will be used in projects that have React installed anyways
-      external: ["react", "react/jsx-runtime"],
+      external: ["react", "react/jsx-runtime", "@tanstack/react-router"],
       input: Object.fromEntries(
         glob.sync("lib/**/*.{ts,tsx}").map((file) => [
           // The name of the entry point
