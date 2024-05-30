@@ -31,13 +31,15 @@ export {
     DropdownMenuRadioGroup,
 } from "./components/ui/dropdown-menu";
 
-// Base applicative components
-export type { MenuProps } from "./components/app/Menu";
-export { AddBreak, AddEntry, Menu } from "./components/app/Menu";
+// App building components
+export { AuthProviderWithRouter } from "./components/app/AuthProviderWithRouter";
+export {
+    AddBreak,
+    AddEntry,
+    Menu,
+    type MenuProps,
+} from "./components/app/Menu";
 
 // Utils
-export { AuthProvidedRouter } from "./utils/app";
-export type { AuthContext } from "./utils/auth";
-export { AuthProvider, useAuth, Visibility } from "./utils/auth";
+export { useAuth, Visibility, type IAuthContext } from "./utils/auth";
 export { cn } from "./utils/cn";
-export { newRouter } from "./utils/router";

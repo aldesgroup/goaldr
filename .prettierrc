@@ -1,7 +1,4 @@
 {
     "tabWidth": 4,
-    "plugins": [
-        "prettier-plugin-tailwindcss",
-        "@softonus/prettier-plugin-whitespace-remover"
-    ]
+    "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -54,9 +54,8 @@ export function Menu(props: MenuProps) {
             // for real menu entries, visibility depends on the chosen mode and the user's auth state
             return (
                 entry.Visibility === Visibility.Always ||
-                (entry.Visibility === Visibility.OnlyUsers &&
-                    auth.isAuthenticated) ||
-                (entry.Visibility === Visibility.OnlyAdmins && auth.isAdmin)
+                (entry.Visibility === Visibility.OnlyUsers && auth.idToken) ||
+                (entry.Visibility === Visibility.OnlyAdmins && auth.idToken)
             );
         }
     });
