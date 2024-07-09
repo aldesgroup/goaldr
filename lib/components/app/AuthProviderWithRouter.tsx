@@ -16,6 +16,8 @@ function RouterProviderWithContext(props: {
     return <RouterProvider router={props.router} context={{ auth }} />; // "context.auth" = auth
 }
 
+export const lskey_GOTOAFTERLOGIN = "goToAfterLogin";
+
 export function AuthProviderWithRouter(props: {
     routeTree: AnyRoute;
     clientID: string;
@@ -33,13 +35,18 @@ export function AuthProviderWithRouter(props: {
         tokenEndpoint: props.tokenURL,
         logoutEndpoint: props.logoutURL,
         logoutRedirect: window.location.origin,
+        // making sure
+        postLogin: () =>
+            window.location.replace(
+                localStorage.getItem(lskey_GOTOAFTERLOGIN) || "",
+            ),
         // other params
         // onRefreshTokenExpire: (event) =>
         //     window.confirm('Tokens have expired. Refresh page to continue using the site?') && event.logIn(),
         //   // Example to redirect back to original path after login has completed
-        //   preLogin: () => localStorage.setItem('preLoginPath', window.location.pathname),
-        //   postLogin: () => window.location.replace(localStorage.getItem('preLoginPath') || ''),
         // decodeToken: false,
+        // preLogin: () =>
+        //     localStorage.setItem("preLoginPath", window.location.pathname),
     };
 
     // injecting an "/auth" route - doing this only once to avoid crashes
