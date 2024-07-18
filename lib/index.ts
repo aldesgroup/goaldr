@@ -1,20 +1,16 @@
 // import { DataTable } from "./components/ui/data-table-";
 
 // Base UI components
-export { Input } from "./components/ui/input";
 export { Button } from "./components/ui/button";
 export {
-    Sheet,
-    SheetPortal,
-    SheetOverlay,
-    SheetTrigger,
-    SheetClose,
-    SheetContent,
-    SheetHeader,
-    SheetFooter,
-    SheetTitle,
-    SheetDescription,
-} from "./components/ui/sheet";
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "./components/ui/card";
+export { DataTable } from "./components/ui/data-table-";
 export {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -32,15 +28,35 @@ export {
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
 } from "./components/ui/dropdown-menu";
-export { DataTable } from "./components/ui/data-table-";
+export { Input } from "./components/ui/input";
+export { Label } from "./components/ui/label";
+export { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
 export {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "./components/ui/card";
+    Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton,
+} from "./components/ui/select";
+export {
+    Sheet,
+    SheetPortal,
+    SheetOverlay,
+    SheetTrigger,
+    SheetClose,
+    SheetContent,
+    SheetHeader,
+    SheetFooter,
+    SheetTitle,
+    SheetDescription,
+} from "./components/ui/sheet";
+export { Slider } from "./components/ui/slider";
+export { Switch } from "./components/ui/switch";
 
 // App building components
 export {
