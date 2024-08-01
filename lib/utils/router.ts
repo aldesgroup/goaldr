@@ -16,6 +16,6 @@ export function newRouter<
         context: {
             auth: undefined!, // This will be set after we wrap the app in an AuthProvider
         },
-        defaultPreload: "intent",
+        defaultPreload: false, // this causes issues with auth-protected routes
     });
 }
