@@ -38,6 +38,7 @@ export interface MenuProps {
     menuClass?: string;
     entryClass?: string;
     activeClass?: string;
+    onEntryClick?: () => void;
 }
 
 export function Menu(props: MenuProps) {
@@ -79,6 +80,9 @@ export function Menu(props: MenuProps) {
                             className={props.entryClass}
                             activeProps={{ className: props.activeClass }}
                             key={index}
+                            onClick={() => {
+                                props.onEntryClick && props.onEntryClick();
+                            }}
                         >
                             <entry.Icon className="size-5" />
                             <span>{entry.Label}</span>
