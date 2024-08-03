@@ -86,3 +86,4 @@ export {
 export { useAuth, Visibility, type IAuthContext } from "./utils/auth";
 export { cn } from "./utils/cn";
 export { postFormValuesAndSetResult } from "./utils/http";
+export { fieldConfigAtom, type FieldConfigAtom } from "./utils/fields";

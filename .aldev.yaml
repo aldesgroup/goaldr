@@ -1,0 +1,11 @@
+cachedir: ../tmp
+lib:
+  srcdir: lib
+  install: npm i
+  develop: npm run dev
+# vendors:
+#   - repo: github.com/form-atoms/form-atoms
+#     # version: latest
+#     version: v3.2.5
+#     from: src
+#     to: lib/vendor
