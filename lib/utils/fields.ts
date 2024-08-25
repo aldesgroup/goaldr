@@ -26,7 +26,7 @@ export type FieldConfig<Value> = {
      * An init value, if different from the one provided with the field atom
      */
     initValue?: Value;
-
+ 
     /**
      * A minimum value, for a numeric field
      */
@@ -63,9 +63,9 @@ export function fieldConfigAtom<Value>(
     config: FieldConfig<Value>,
 ): FieldConfigAtom<Value> {
     return atom({
-        fieldAtom: config.fieldAtom,
-        visible: config.visible,
-        disabled: config.disabled,
+        fieldAtom: config.fieldAtom, // The embedded field, which we want to enrich with additional functionality
+        visible: config.visible, // Custom hook to condition the rendering of the field, else nothing (or <></>) is rendered
+        disabled: config.disabled, // Custom hook to provide a dynamic value for the `disabled` tag if required
         effects: config.effects,
         initValue: config.initValue,
         min: config.min,
