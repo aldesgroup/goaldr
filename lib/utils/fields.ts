@@ -26,7 +26,7 @@ export type FieldConfig<Value> = {
      * An init value, if different from the one provided with the field atom
      */
     initValue?: Value;
- 
+
     /**
      * A minimum value, for a numeric field
      */
@@ -38,6 +38,11 @@ export type FieldConfig<Value> = {
     max?: Value;
 
     /**
+     * A step value, for a numeric field
+     */
+    step?: Value;
+
+    /**
      * Custom hook that can be used to disable a control decreasing the field's value
      */
     minDisabled?: () => boolean;
@@ -46,6 +51,11 @@ export type FieldConfig<Value> = {
      * Custom hook that can be used to disable a control increasing the field's value
      */
     maxDisabled?: () => boolean;
+
+    /**
+     * Options, for a select field
+     */
+    options?: { value: number; label: string; disabled?: Atom<boolean> }[];
 };
 
 /**
@@ -72,9 +82,7 @@ export function fieldConfigAtom<Value>(
         max: config.max,
         minDisabled: config.minDisabled,
         maxDisabled: config.maxDisabled,
-        /**
-         * options
-         * step
-         */
+        options: config.options,
+        step: config.step,
     });
 }
