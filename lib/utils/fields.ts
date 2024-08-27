@@ -55,7 +55,12 @@ export type FieldConfig<Value> = {
     /**
      * Options, for a select field
      */
-    options?: { value: number; label: string; disabled?: Atom<boolean> }[];
+    options?: { value: number; label: string }[];
+
+    /**
+     * Configuring additional behaviours on options passed to a select field
+     */
+    optionsConfig?: Map<number, { disabled?: Atom<boolean> }>;
 };
 
 /**
@@ -80,9 +85,10 @@ export function fieldConfigAtom<Value>(
         initValue: config.initValue,
         min: config.min,
         max: config.max,
+        step: config.step,
         minDisabled: config.minDisabled,
         maxDisabled: config.maxDisabled,
         options: config.options,
-        step: config.step,
+        optionsConfig: config.optionsConfig,
     });
 }
