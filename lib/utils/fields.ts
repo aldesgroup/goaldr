@@ -40,12 +40,12 @@ export type FieldConfig<Value> = {
     /**
      * Custom hook that can be used to disable a control decreasing the field's value
      */
-    minDisabled?: () => boolean;
+    decrementDisabled?: () => boolean;
 
     /**
      * Custom hook that can be used to disable a control increasing the field's value
      */
-    maxDisabled?: () => boolean;
+    incrementDisabled?: () => boolean;
 
     /**
      * Options, for a select field
@@ -80,8 +80,8 @@ export function fieldConfigAtom<Value>(
         min: config.min,
         max: config.max,
         step: config.step,
-        minDisabled: config.minDisabled,
-        maxDisabled: config.maxDisabled,
+        decrementDisabled: config.decrementDisabled,
+        incrementDisabled: config.incrementDisabled,
         options: config.options,
         optionsConfig: config.optionsConfig,
     });
