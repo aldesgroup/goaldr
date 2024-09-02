@@ -49,19 +49,6 @@ export function AuthProviderWithRouter(props: {
         //     localStorage.setItem("preLoginPath", window.location.pathname),
     };
 
-    // injecting an "/auth" route - doing this only once to avoid crashes
-    // let routeTree = props.routeTree;
-    // if (
-    //     !routeTree.children.find(
-    //         (child: AnyRoute) => child.fullPath === AuthPath,
-    //     )
-    // ) {
-    //     routeTree = props.routeTree.addChildren([
-    //         ...props.routeTree.children,
-    //         AuthRoute(props.routeTree),
-    //     ]);
-    // }
-
     // returning the configured auth provider, wrapping our configured router
     return (
         <AuthProvider authConfig={authConfig}>

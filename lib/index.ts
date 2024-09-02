@@ -75,6 +75,7 @@ export {
     AuthProviderWithRouter,
     lskey_GOTOAFTERLOGIN,
 } from "./components/app/AuthProviderWithRouter";
+export { Hotjar } from "./components/app/Hotjar";
 export {
     AddBreak,
     AddEntry,
