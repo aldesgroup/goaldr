@@ -16,7 +16,8 @@
     "peerDependencies": {
         "@tanstack/react-router": "^1.33.6",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "form-atoms": "^3.2.5"
     },
     "devDependencies": {
         "@tanstack/react-router": "^1.33.6",
@@ -82,7 +83,6 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "cmdk": "^1.0.0",
-        "form-atoms": "^3.2.5",
         "jotai": "^2.9.1",
         "lucide-react": "^0.379.0",
         "react-oauth2-code-pkce": "^1.18.1",
