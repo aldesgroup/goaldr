@@ -85,6 +85,6 @@ export {
 // Utils
 export { Visibility, useAuth, type IAuthContext } from "./utils/auth";
 export { cn } from "./utils/cn";
+export { debug, isDebug } from "./utils/debug.ts";
 export { fieldConfigAtom, type FieldConfigAtom } from "./utils/fields";
 export { postFormValuesAndSetResult } from "./utils/http";
-export { log } from "./utils/logging";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { log } from "../../utils/logging";
+import { debug } from "../../utils/debug";
 
 function InnerHotjar(props: { hotjarID: string }) {
     useEffect(() => {
@@ -8,7 +8,7 @@ function InnerHotjar(props: { hotjarID: string }) {
                 `script[src*="hotjar.com/c/hotjar-${props.hotjarID}.js"]`,
             )
         ) {
-            log("adding Hotjar");
+            debug("adding Hotjar");
 
             const script = document.createElement("script");
 

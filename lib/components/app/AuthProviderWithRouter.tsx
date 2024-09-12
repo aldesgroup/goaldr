@@ -9,6 +9,7 @@ import "../../utils/i18n";
 import { getAllParentRoutes, newRouter } from "../../utils/router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { debug } from "../../utils/debug";
 
 // Router provider that uses the AuthContext as its context, which allows auth-aware navigation
 // This router also detects route changes and tries to load the translations for the new route, if not done yet.
@@ -21,7 +22,7 @@ function RouterProviderWithContext(props: {
 
     useEffect(() => {
         const handleRouteChange = () => {
-            console.log("Route changed to:", props.router.state.location);
+            debug("Route changed to:", props.router.state.location);
 
             i18n.loadNamespaces(
                 getAllParentRoutes(props.router.state.location.pathname),

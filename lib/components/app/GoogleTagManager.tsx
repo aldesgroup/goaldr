@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { log } from "../../utils/logging";
+import { debug } from "../../utils/debug";
 
 const InnerGoogleTagManager = (props: { gtmID: string }) => {
     useEffect(() => {
         if (
             !document.querySelector(`script[src*="gtm.js?id=${props.gtmID}"]`)
         ) {
-            log("adding GTM");
+            debug("adding GTM");
 
             const script = document.createElement("script");
 

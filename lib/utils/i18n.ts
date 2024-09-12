@@ -3,10 +3,10 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
 import { initReactI18next, useTranslation } from "react-i18next";
+import { debug, isDebug } from "./debug";
 import { getAllParentRoutes } from "./router";
 
 // i18n module initialising
-
 i18n.use(HttpBackend)
     .use(LanguageDetector) // Detect the user's language automatically
     .use(initReactI18next)
@@ -72,6 +72,29 @@ const translateKeyAtRoute = (key: string, route: string) => {
     return { translation, missing: translation === "" };
 };
 
+// keeping track of the missing translations
+let missingTranslations = new Map<string, boolean>();
+
+// (re)initialising the missing translations
+export function resetMissingTranslations() {
+    missingTranslations = new Map<string, boolean>();
+}
+
+// showing the missing translations in debug mode
+// @ts-ignore
+window.showMissingTranslations = function (): void {
+    if (!isDebug()) {
+        console.log("Debug mode not activated, showing you nothing!");
+    }
+
+    debug(
+        Array.from(missingTranslations)
+            .filter(([_, value]) => value) // Only keep entries with `true` values
+            .map(([key]) => key) // Extract the keys
+            .join("\n"), // Join keys with a newline
+    );
+};
+
 // main translating function hook
 
 /**
@@ -81,8 +104,22 @@ const translateKeyAtRoute = (key: string, route: string) => {
 export const useTranslator = () => {
     const currentLocation = useLocation();
 
-    const translate = (label: string) =>
-        translateKeyAtRoute(label, currentLocation.pathname);
+    const translate = (label: string) => {
+        const { translation, missing } = translateKeyAtRoute(
+            label,
+            currentLocation.pathname,
+        );
+
+        // keeping track of the missing translations in debug mode
+        if (isDebug()) {
+            missingTranslations.set(
+                currentLocation.pathname + "," + label,
+                translation === "",
+            );
+        }
+
+        return { translation, missing };
+    };
 
     return { translate };
 };

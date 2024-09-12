@@ -35,7 +35,7 @@ export const AuthPath = "/auth";
 //             code: z.string().optional(),
 //         }),
 //         beforeLoad: ({ search }) => {
-//             log(search.code);
+//             debug(search.code);
 //         },
 //     });
 // }
