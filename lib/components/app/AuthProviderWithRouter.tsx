@@ -1,23 +1,48 @@
 import {
+    RouterProvider,
     type AnyRoute,
     type Router,
-    RouterProvider,
 } from "@tanstack/react-router";
 
 import { AuthProvider, useAuth, type TAuthConfig } from "../../utils/auth";
-import { newRouter } from "../../utils/router";
+import "../../utils/i18n";
+import { getAllParentRoutes, newRouter } from "../../utils/router";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 // Router provider that uses the AuthContext as its context, which allows auth-aware navigation
+// This router also detects route changes and tries to load the translations for the new route, if not done yet.
 function RouterProviderWithContext(props: {
     router: Router<any, any, any, any>;
 }) {
     // we can use this if we're inside an AuthProvider
     const auth = useAuth();
-    return <RouterProvider router={props.router} context={{ auth }} />; // "context.auth" = auth
+    const { i18n } = useTranslation();
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            console.log("Route changed to:", props.router.state.location);
+
+            i18n.loadNamespaces(
+                getAllParentRoutes(props.router.state.location.pathname),
+                () => {
+                    i18n.changeLanguage(i18n.language); // Ensure the new namespace is loaded
+                },
+            );
+        };
+
+        // Listen for route changes
+        props.router.subscribe("onBeforeLoad", handleRouteChange);
+    }, [props.router]);
+
+    return <RouterProvider router={props.router} context={{ auth }} />;
 }
 
-export const lskey_GOTOAFTERLOGIN = "goToAfterLogin";
+const lskey_GOTOAFTERLOGIN = "goToAfterLogin";
 
+/**
+ * A component that handles authentication, routing, and i18n
+ */
 export function AuthProviderWithRouter(props: {
     routeTree: AnyRoute;
     clientID: string;
@@ -36,17 +61,15 @@ export function AuthProviderWithRouter(props: {
         logoutEndpoint: props.logoutURL,
         logoutRedirect: window.location.origin,
         // making sure
+        preLogin: () =>
+            localStorage.setItem(
+                lskey_GOTOAFTERLOGIN,
+                window.location.pathname,
+            ),
         postLogin: () =>
             window.location.replace(
                 localStorage.getItem(lskey_GOTOAFTERLOGIN) || "",
             ),
-        // other params
-        // onRefreshTokenExpire: (event) =>
-        //     window.confirm('Tokens have expired. Refresh page to continue using the site?') && event.logIn(),
-        //   // Example to redirect back to original path after login has completed
-        // decodeToken: false,
-        // preLogin: () =>
-        //     localStorage.setItem("preLoginPath", window.location.pathname),
     };
 
     // returning the configured auth provider, wrapping our configured router

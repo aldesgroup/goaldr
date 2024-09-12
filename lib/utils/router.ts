@@ -19,3 +19,32 @@ export function newRouter<
         defaultPreload: false, // this causes issues with auth-protected routes
     });
 }
+
+// Utils
+const routeHierarchies: { [key: string]: string[] } = {};
+
+export function getAllParentRoutes(route: string): string[] {
+    // Check if the result is already cached
+    if (routeHierarchies[route]) {
+        return routeHierarchies[route];
+    }
+
+    // Base case: If the route is "/"
+    if (route === "/" || route === "") {
+        return ["/"];
+    }
+
+    // Store the current route
+    const parentRoutes: string[] = [route];
+
+    // Remove the last segment to get the parent route
+    const parentRoute = route.substring(0, route.lastIndexOf("/")) || "/";
+
+    // Adding the parent route's parent routes
+    parentRoutes.push(...getAllParentRoutes(parentRoute));
+
+    // Cache the result for the current route
+    routeHierarchies[route] = parentRoutes;
+
+    return parentRoutes;
+}

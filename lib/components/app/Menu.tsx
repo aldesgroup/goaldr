@@ -1,12 +1,14 @@
 import { Link } from "@tanstack/react-router";
 
 import { useAuth, Visibility } from "../../utils/auth";
+import { TLabel } from "../ui/t-label";
 
 interface menuEntry {
     Break: boolean;
     Route?: string;
     Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
-    Label?: string;
+    Label: string;
+    Prefix: string;
     Visibility: Visibility;
 }
 
@@ -14,6 +16,8 @@ export function AddBreak(): menuEntry {
     return {
         Break: true,
         Icon: () => <></>,
+        Label: "",
+        Prefix: "",
         Visibility: Visibility.Always,
     };
 }
@@ -22,6 +26,7 @@ export function AddEntry(
     route: string,
     icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element,
     label: string,
+    prefix?: string,
     visibility?: Visibility,
 ): menuEntry {
     return {
@@ -29,6 +34,7 @@ export function AddEntry(
         Route: route,
         Icon: icon,
         Label: label,
+        Prefix: prefix || "",
         Visibility: visibility || Visibility.Always,
     };
 }
@@ -37,6 +43,7 @@ export interface MenuProps {
     entries: menuEntry[];
     menuClass?: string;
     entryClass?: string;
+    labelClass?: string;
     activeClass?: string;
     onEntryClick?: () => void;
 }
@@ -85,7 +92,11 @@ export function Menu(props: MenuProps) {
                             }}
                         >
                             <entry.Icon className="size-5" />
-                            <span>{entry.Label}</span>
+                            {entry.Prefix && <span>{entry.Prefix}</span>}
+                            <TLabel
+                                value={entry.Label}
+                                className={props.labelClass}
+                            />
                         </Link>
                     );
                 }
