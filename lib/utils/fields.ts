@@ -53,6 +53,11 @@ export type FieldConfig<Value> = {
     options?: { value: number; label: string }[];
 
     /**
+     * Amongst the given #Options, which values to allow; if void, then all the options are allowed
+     */
+    optionsOnly?: number[];
+
+    /**
      * Configuring additional behaviours on options passed to a select field
      */
     optionsConfig?: Map<number, { disabled?: Atom<boolean> }>;
@@ -83,6 +88,7 @@ export function fieldConfigAtom<Value>(
         decrementDisabled: config.decrementDisabled,
         incrementDisabled: config.incrementDisabled,
         options: config.options,
+        optionsOnly: config.optionsOnly,
         optionsConfig: config.optionsConfig,
     });
 }
