@@ -13,7 +13,7 @@ i18n.use(HttpBackend)
     .init({
         backend: {
             loadPath:
-                import.meta.env.WEB_API_URL +
+                import.meta.env.WEB_API_URL.trim() +
                 "/rest/translation/{{lng}}?Namespace={{ns}}",
 
             parse: (data: string) => {

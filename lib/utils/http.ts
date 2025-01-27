@@ -18,13 +18,16 @@ export const postFormValuesAndSetResult = async <InputType, ResultType>(
         setResult(undefined);
 
         // HTTP calling
-        const response = await fetch(import.meta.env.WEB_API_URL + path, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
+        const response = await fetch(
+            import.meta.env.WEB_API_URL.trim() + path,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             },
-            body: JSON.stringify(data),
-        });
+        );
 
         // reading the response
         const result =
