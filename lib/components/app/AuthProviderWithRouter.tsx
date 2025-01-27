@@ -55,11 +55,11 @@ export function AuthProviderWithRouter(props: {
     const authConfig: TAuthConfig = {
         autoLogin: false,
         storageKeyPrefix: "auth_",
-        clientId: props.clientID,
-        authorizationEndpoint: props.loginURL,
+        clientId: props.clientID.trim(),
+        authorizationEndpoint: props.loginURL.trim(),
         redirectUri: window.location.origin,
-        tokenEndpoint: props.tokenURL,
-        logoutEndpoint: props.logoutURL,
+        tokenEndpoint: props.tokenURL.trim(),
+        logoutEndpoint: props.logoutURL.trim(),
         logoutRedirect: window.location.origin,
         // making sure
         preLogin: () =>
