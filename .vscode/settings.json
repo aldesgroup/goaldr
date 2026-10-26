@@ -1,0 +1,14 @@
+{
+	"editor.formatOnSave": true,
+	"biome.lsp.bin": "web/node_modules/.bin/biome",
+	"[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[json]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[css]": { "editor.defaultFormatter": "biomejs.biome" },
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit"
+	}
+}

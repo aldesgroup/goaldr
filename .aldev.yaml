@@ -1,11 +1,11 @@
-cachedir: ../tmp
+appname: goaldr
+
 lib:
   srcdir: lib
-  install: npm i
-  develop: npm run dev
-# vendors:
-#   - repo: github.com/form-atoms/form-atoms
-#     # version: latest
-#     version: v3.2.5
-#     from: src
-#     to: lib/vendor
+
+vendors:
+  - repo: github.com/aldesgroup/carots
+    branch: dev/new_formatter_n_linter
+    version: latest
+    from: lib
+    to: lib
