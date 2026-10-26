@@ -2,7 +2,7 @@ import { Label } from '../base';
 import { type Field, useField } from '../carots';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
-export function RadioGroupField<T extends Field<number>>({
+export function RadioGroupField<T extends Field<any>>({
 	// label,
 	field,
 }: {
