@@ -2,6 +2,7 @@ import { cn } from 'cn';
 import { Menu as MenuIcon, PanelLeftClose } from 'lucide-react';
 import { useState } from 'react';
 import { Menu, type MenuProps } from '../navigation';
+import { LangMenu } from '../settings/LangMenu';
 import { Button as Rawbutton } from '../ui/button';
 import {
 	Sheet,
@@ -19,26 +20,29 @@ export function Header(props: { name: string; menu: MenuProps }) {
 	return (
 		<header className="bg-devotion-action text-devotion-white sm:bg-devotion-white sm:text-foreground sticky top-0 z-50 flex h-14 items-center px-4 sm:h-20 sm:border-b">
 			<Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-				<SheetTrigger
-					className="hidden sm:block"
-					render={
-						<Rawbutton className="shrink-0 pl-2.5" size="icon" variant="link">
-							{/* <MenuIcon className="sm:text-devotion-action h-5 w-5" /> */}
-							<MenuIcon />
-							<span className="sr-only">Toggle navigation menu</span>
-						</Rawbutton>
-					}
-				/>
-				<SheetClose
-					className="hidden sm:block"
-					render={
-						<Rawbutton className="shrink-0 pl-2.5" size="icon" variant="link">
-							{/* <MenuIcon className="sm:text-devotion-action h-5 w-5" /> */}
-							<PanelLeftClose />
-							<span className="sr-only">Toggle navigation menu</span>
-						</Rawbutton>
-					}
-				/>
+				{!menuOpen ? (
+					<SheetTrigger
+						className="hidden sm:block"
+						render={
+							<Rawbutton className="shrink-0 pl-2.5" size="icon" variant="link">
+								{/* <MenuIcon className="sm:text-devotion-action h-5 w-5" /> */}
+								<MenuIcon />
+								<span className="sr-only">Toggle navigation menu</span>
+							</Rawbutton>
+						}
+					/>
+				) : (
+					<SheetClose
+						className="hidden sm:block"
+						render={
+							<Rawbutton className="shrink-0 pl-2.5" size="icon" variant="link">
+								{/* <MenuIcon className="sm:text-devotion-action h-5 w-5" /> */}
+								<PanelLeftClose />
+								<span className="sr-only">Toggle navigation menu</span>
+							</Rawbutton>
+						}
+					/>
+				)}
 				<SheetContent side="top">
 					<SheetHeader>
 						<SheetTitle>
@@ -74,7 +78,7 @@ export function Header(props: { name: string; menu: MenuProps }) {
 
 			{/* Avatar */}
 			<div className="flex sm:gap-1.5">
-				{/* <LangMenu /> */}
+				<LangMenu />
 				{/* <Avatar /> */}
 			</div>
 		</header>

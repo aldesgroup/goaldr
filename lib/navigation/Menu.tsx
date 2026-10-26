@@ -85,8 +85,7 @@ export function Menu(props: MenuProps) {
 						// biome-ignore lint: missing key for <hr>
 						return <hr key={index} />;
 					} else {
-						// biome-ignore lint: missing key for <p>                                                                                                                                       >
-						return <p key={index}>Wait whaaaaaat?</p>;
+						return null;
 					}
 				} else {
 					return (
