@@ -20,9 +20,9 @@
 // handling visibility depending on the auth status of the user
 // eslint-disable-next-line react-refresh/only-export-components
 export enum Visibility {
-    Always,
-    OnlyUsers,
-    OnlyAdmins,
+	Always,
+	OnlyUsers,
+	OnlyAdmins,
 }
 
 // generic route to dynamically add to the root route (the route tree) to handle auth-related stuff
