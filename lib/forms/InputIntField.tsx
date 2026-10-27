@@ -55,6 +55,7 @@ export function InputIntField<T extends Field<any>>({
 						className="mx-3 w-full border-devotion-action text-center"
 						readOnly
 						disabled
+						value={value}
 					/>
 					<Rawbutton
 						type="button"

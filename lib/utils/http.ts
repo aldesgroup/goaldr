@@ -1,3 +1,5 @@
+import { getGoaldrConfig } from '../settings';
+
 // When Goald respond with 1 business object
 interface singleGoaldResponse<ObjectType> {
 	Object: ObjectType;
@@ -18,7 +20,7 @@ export const postFormValuesAndSetResult = async <InputType, ResultType>(
 		setResult(undefined);
 
 		// HTTP calling
-		const response = await fetch(import.meta.env.WEB_API_URL.trim() + path, {
+		const response = await fetch(getGoaldrConfig().ApiURL + path, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
