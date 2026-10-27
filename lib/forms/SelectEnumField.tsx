@@ -10,7 +10,7 @@ import {
 	SelectValue,
 } from '../ui/select';
 
-function SelectIntOption(props: {
+function SelectEnumOption(props: {
 	value: number;
 	label: string;
 	config?: FieldOptionInfos | undefined;
@@ -27,7 +27,7 @@ function SelectIntOption(props: {
 	);
 }
 
-export function SelectIntField<T extends Field<any>>({
+export function SelectEnumField<T extends Field<any>>({
 	label,
 	field,
 }: {
@@ -61,7 +61,16 @@ export function SelectIntField<T extends Field<any>>({
 						disabled={disabled}
 					>
 						<SelectTrigger>
-							<SelectValue placeholder="" />
+							{/* the items are not mounted while closed, so we resolve the label ourselves */}
+							<SelectValue placeholder="">
+								{(selected: string | null) => {
+									const option = field.options?.find(
+										(item: { value: number; label: string }) =>
+											item.value.toString() === selected,
+									);
+									return option ? <Label value={option.label} /> : null;
+								}}
+							</SelectValue>
 						</SelectTrigger>
 						<SelectContent>
 							{field.optionsOnly
@@ -73,7 +82,7 @@ export function SelectIntField<T extends Field<any>>({
 										.map(
 											(option) =>
 												option && (
-													<SelectIntOption
+													<SelectEnumOption
 														key={option.value.toString()}
 														{...option}
 														config={field.optionsInfos?.get(option.value)}
@@ -82,7 +91,7 @@ export function SelectIntField<T extends Field<any>>({
 										)
 								: // else it's normal business, we allow to select any option
 									field.options.map((option) => (
-										<SelectIntOption
+										<SelectEnumOption
 											key={option.value.toString()}
 											{...option}
 											config={field.optionsInfos?.get(option.value)}
