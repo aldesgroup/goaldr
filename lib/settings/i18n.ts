@@ -7,25 +7,26 @@ import { initReactI18next, useTranslation } from 'react-i18next';
 import { getAllParentRoutes } from '../navigation';
 import type { GoaldrConfig } from './config';
 
+let initPromise: Promise<unknown> = Promise.resolve();
+
 // i18n module initialising
 export const initI18n = (config: GoaldrConfig) => {
-	i18n
+	initPromise = i18n
 		.use(HttpBackend)
 		.use(LanguageDetector) // Detect the user's language automatically
 		.use(initReactI18next)
 		.init({
 			backend: {
-				loadPath:
-					config.apiUrl.trim() + '/rest/translation/{{lng}}?Namespace={{ns}}',
+				loadPath: `${config.ApiURL}/rest/translation/{{lng}}?Namespace={{ns}}`,
 
 				parse: (data: string) => {
 					const jsonObject = JSON.parse(data) as {
-						ObjectList: { Key: string; Value: string }[];
+						objectList: { key: string; value: string }[];
 					};
 
-					return jsonObject.ObjectList.reduce<Record<string, string>>(
-						(acc, { Key, Value }) => {
-							acc[Key] = Value;
+					return jsonObject.objectList.reduce<Record<string, string>>(
+						(acc, { key, value }) => {
+							acc[key] = value;
 							return acc;
 						},
 						{},
@@ -53,6 +54,17 @@ export const initI18n = (config: GoaldrConfig) => {
 				useSuspense: false,
 			},
 		});
+
+	return initPromise;
+};
+
+/**
+ * Makes sure the namespaces needed by a route (and its parents) are loaded.
+ * To be awaited from a router `beforeLoad`, so the route only renders once its translations are available.
+ */
+export const loadRouteNamespaces = async (pathname: string) => {
+	await initPromise;
+	await i18n.loadNamespaces(getAllParentRoutes(pathname));
 };
 
 // Helper function to recursively check parent routes for a translation
@@ -79,28 +91,6 @@ const useTranslateKeyAtRoute = () => {
 	};
 };
 
-// // keeping track of the missing translations
-// let missingTranslations = new Map<string, boolean>();
-
-// // (re)initialising the missing translations
-// export function resetMissingTranslations() {
-//     missingTranslations = new Map<string, boolean>();
-// }
-
-// // showing the missing translations in debug mode
-// window.showMissingTranslations = function (): void {
-//     if (!isDebug()) {
-//         console.log("Debug mode not activated, showing you nothing!");
-//     }
-
-//     debug(
-//         Array.from(missingTranslations)
-//             .filter(([_, value]) => value) // Only keep entries with `true` values
-//             .map(([key]) => key) // Extract the keys
-//             .join("\n"), // Join keys with a newline
-//     );
-// };
-
 // main translating function hook
 
 /**
@@ -116,14 +106,6 @@ export const useTranslator = () => {
 			label,
 			currentLocation.pathname,
 		);
-
-		// keeping track of the missing translations in debug mode
-		// if (isDebug()) {
-		//     missingTranslations.set(
-		//         currentLocation.pathname + "," + label,
-		//         translation === "",
-		//     );
-		// }
 
 		return { translation, missing };
 	};

@@ -24,21 +24,28 @@
 const routeHierarchies: { [key: string]: string[] } = {};
 
 export function getAllParentRoutes(route: string): string[] {
+	// Normalize the route by replacing each slash with an underscore
+	route = route.replace(/\//g, '_');
+
 	// Check if the result is already cached
-	if (routeHierarchies[route]) {
-		return routeHierarchies[route];
+	const cached = routeHierarchies[route];
+	if (cached !== undefined) {
+		return cached;
 	}
 
 	// Base case: If the route is "/"
-	if (route === '/' || route === '') {
-		return ['/'];
+	if (route === '_' || route === '') {
+		return ['_'];
 	}
 
 	// Store the current route
 	const parentRoutes: string[] = [route];
 
 	// Remove the last segment to get the parent route
-	const parentRoute = route.substring(0, route.lastIndexOf('/')) || '/';
+	const parentRouteRaw = route.substring(0, route.lastIndexOf('_')) || '_';
+
+	// Replacing each slash with an underscore
+	const parentRoute = parentRouteRaw.replace(/\//g, '_');
 
 	// Adding the parent route's parent routes
 	parentRoutes.push(...getAllParentRoutes(parentRoute));

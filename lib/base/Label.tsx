@@ -19,13 +19,22 @@ interface labelProps extends React.ComponentProps<'label'> {
 	capitalizeFirst?: boolean;
 }
 
-export function Label({ className, value, uppercase, ...props }: labelProps) {
+export function Label({
+	className,
+	value,
+	uppercase,
+	raw,
+	capitalizeFirst,
+	prepend: _prepend,
+	append: _append,
+	...props
+}: labelProps) {
 	const { translate } = useTranslator();
-	const { translation, missing } = props.raw
+	const { translation, missing } = raw
 		? { translation: value, missing: false }
 		: translate(value);
 	const translated = translation === '' ? `(${value})` : translation;
-	const displayedText = props.capitalizeFirst
+	const displayedText = capitalizeFirst
 		? translated.charAt(0).toUpperCase() + translated.slice(1)
 		: translated;
 

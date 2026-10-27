@@ -8,12 +8,12 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-
-const languages = (import.meta.env.VITE_APP_LANGS.trim() as string).split(',');
+import { getGoaldrConfig } from './config';
 
 export function LangMenu() {
 	const [languageOpen, setLanguageOpen] = useState(false);
 	const { i18n } = useTranslation();
+	const { Languages } = getGoaldrConfig();
 
 	const handleLanguageChange = (code: string) => {
 		i18n.changeLanguage(code);
@@ -38,7 +38,7 @@ export function LangMenu() {
 				}
 			/>
 			<DropdownMenuContent className="flex min-w-16 flex-col gap-1.5 py-2">
-				{languages.map((lang) => (
+				{Languages.map((lang) => (
 					<DropdownMenuItem
 						className="self-center"
 						key={lang}
