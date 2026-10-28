@@ -17,9 +17,9 @@ interface ApplicationProps {
 
 export function Application(props: ApplicationProps) {
 	return (
-		<div>
+		<div className="flex min-h-screen flex-col">
 			<Header name={props.name} menu={props.menu} />
-			<div className="flex">
+			<div className="flex flex-1">
 				<Sidebar menu={props.menu} logo={props.logo} />
 				<main className="flex-1">{props.children}</main>
 			</div>
