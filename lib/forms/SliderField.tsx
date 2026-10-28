@@ -101,15 +101,15 @@ export function SliderField<T extends Field<number>>({
 	if (!visible) return null;
 
 	return (
-		<div className={cn('my-1 flex', props.className)}>
+		<div className={cn('my-1 flex w-full', props.className)}>
 			<Label
 				className={cn(
-					'mr-4 flex w-cardlabels flex-col justify-center text-right font-light sm:w-smcardlabels',
+					'w-cardlabels sm:w-smcardlabels mr-4 flex flex-col justify-center text-right font-light',
 					props.labelClassName,
 				)}
 				value={props.label}
 			/>
-			<div className="flex w-cardvalues sm:w-smcardvalues">
+			<div className="w-cardvalues sm:w-smcardvalues flex min-w-40 flex-1 items-center">
 				{props.leftIcon && <props.leftIcon className="mr-2" />}
 				<Slider
 					min={min}
@@ -136,7 +136,7 @@ export function SliderField<T extends Field<number>>({
 				/>
 				{props.rightIcon && <props.rightIcon className="ml-2" />}
 			</div>
-			<div className="flex-row justify-between">
+			{/* <div className="flex-row justify-between">
 				<div className="ml-4 flex-row">
 					<Label
 						raw
@@ -169,7 +169,7 @@ export function SliderField<T extends Field<number>>({
 						value={maxLabel}
 					/>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

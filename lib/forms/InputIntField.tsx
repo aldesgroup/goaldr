@@ -36,13 +36,13 @@ export function InputIntField<T extends Field<any>>({
 		visible && (
 			<div className="flex">
 				<Label
-					className="mr-4 flex w-cardlabels flex-col justify-center text-right font-light sm:w-smcardlabels"
+					className="w-cardlabels sm:w-smcardlabels mr-4 flex flex-col justify-center text-right font-light"
 					value={label}
 				/>
-				<div className="flex w-cardvalues sm:w-smcardvalues">
+				<div className="w-cardvalues sm:w-smcardvalues flex">
 					<Rawbutton
 						type="button"
-						className="w-10 border border-devotion-action border-opacity-50 bg-devotion-grey text-lg font-bold text-devotion-action hover:bg-devotion-pressed"
+						className="border-devotion-action border-opacity-50 bg-devotion-grey text-devotion-action hover:bg-devotion-pressed w-10 border text-lg font-bold"
 						onClick={() => {
 							setValue(value - 1);
 						}}
@@ -52,14 +52,14 @@ export function InputIntField<T extends Field<any>>({
 					</Rawbutton>
 					<Input
 						{...props}
-						className="mx-3 w-full border-devotion-action text-center"
+						className="border-devotion-action mx-3 w-24 text-center"
 						readOnly
 						disabled
 						value={value}
 					/>
 					<Rawbutton
 						type="button"
-						className="w-10 border border-devotion-action border-opacity-50 bg-devotion-grey font-bold text-devotion-action hover:bg-devotion-pressed"
+						className="border-devotion-action border-opacity-50 bg-devotion-grey text-devotion-action hover:bg-devotion-pressed w-10 border font-bold"
 						onClick={() => {
 							setValue(value + 1);
 						}}

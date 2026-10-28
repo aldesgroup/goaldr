@@ -59,6 +59,37 @@ export const initI18n = (config: GoaldrConfig) => {
 };
 
 /**
+ * Truncates a label to a specified maximum length, cutting at a space if possible.
+ * @param {string} label - The label to truncate.
+ * @param {number} max - The maximum length of the label.
+ * @returns {string} The truncated label.
+ * @category Settings
+ */
+function keyFromLabel(label: string, max: number) {
+	// If the string is already within the max length, return it as is
+	if (label.length <= max) {
+		return label;
+	}
+
+	// Finding the place where to cut the string, starting from the end
+	let cutIndex = 0;
+	for (let i = max; i > 0; i--) {
+		if (label[i] === ' ') {
+			cutIndex = i;
+			break;
+		}
+	}
+
+	// If no space is found, cut at the maximum size
+	if (cutIndex === 0) {
+		cutIndex = max;
+	}
+
+	// Return the substring up to the cut index
+	return label.slice(0, cutIndex);
+}
+
+/**
  * Makes sure the namespaces needed by a route (and its parents) are loaded.
  * To be awaited from a router `beforeLoad`, so the route only renders once its translations are available.
  */
@@ -71,15 +102,19 @@ export const loadRouteNamespaces = async (pathname: string) => {
 const useTranslateKeyAtRoute = () => {
 	const { t, i18n } = useTranslation();
 
-	return (key: string, route: string) => {
+	return (label: string, route: string) => {
 		// We do not translate english since we're coding in english
 		if (i18n.language?.startsWith('en')) {
-			return { translation: key, missing: false };
+			return { translation: label, missing: false };
 		}
 
 		// Attempt to translate using the current path as the namespace
 		let translation = '';
 
+		// Making a key from the label
+		const key = keyFromLabel(label, 48); // TODO! Env var to set here, driven by Aldev
+
+		// Iterate through all parent routes to find a translation for the key
 		for (const parentRoute of getAllParentRoutes(route)) {
 			translation = t(key, { ns: parentRoute, defaultValue: '' });
 			if (translation !== '') {
