@@ -17,7 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				ref={ref}
 				className={cn(
 					light
-						? 'border border-devotion-action border-opacity-50 bg-devotion-grey text-devotion-action'
+						? 'border-devotion-action border-opacity-50 bg-devotion-grey text-devotion-action border'
 						: 'bg-devotion-action',
 					className,
 				)}

@@ -2,7 +2,7 @@
 // import { Hotjar } from "../monitoring/Hotjar";
 import type { ReactNode } from 'react';
 import type { MenuProps } from '../navigation';
-// import { Footer } from './Footer';
+import { Footer } from './Footer';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 
@@ -23,7 +23,7 @@ export function Application(props: ApplicationProps) {
 				<Sidebar menu={props.menu} logo={props.logo} />
 				<main className="flex-1">{props.children}</main>
 			</div>
-			{/* <Footer /> */}
+			<Footer />
 			{/* <Hotjar hotjarID={props.hotjarID} /> */}
 			{/* <GoogleTagManager gtmID={props.gtmID} /> */}
 		</div>

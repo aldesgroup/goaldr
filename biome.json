@@ -9,7 +9,12 @@
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
-		"enabled": true
+		"enabled": true,
+		"rules": {
+			"nursery": {
+				"useTailwindSortedClasses": { "level": "on", "fix": "safe" }
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {

@@ -2,10 +2,10 @@ import { getGoaldrConfig } from '../settings';
 
 // When Goald respond with 1 business object
 interface singleGoaldResponse<ObjectType> {
-	Object: ObjectType;
-	StatusCode: number;
-	Status: string;
-	Message: string;
+	object: ObjectType;
+	statusCode: number;
+	status: string;
+	message: string;
 }
 
 // This function allows to post data to a given URL, then set the result within the caller's context using the given state setter
@@ -35,17 +35,17 @@ export const postFormValuesAndSetResult = async <InputType, ResultType>(
 		if (!response.ok && failIfNotOK) {
 			throw new Error(
 				'Error ' +
-					result.StatusCode +
+					result.statusCode +
 					' (' +
-					result.Status +
+					result.status +
 					'): ' +
-					result.Message,
+					result.message,
 			);
 		}
 
 		// we're good, let's set the result
 		if (response.ok) {
-			setResult(result.Object as ResultType);
+			setResult(result.object as ResultType);
 		} else {
 			setResult({} as ResultType);
 		}
