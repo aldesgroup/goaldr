@@ -1,6 +1,8 @@
 import { cn, Label } from '../base';
 import { type Field, useField } from '../carots';
 import { Switch } from '../ui/switch';
+import { useFormGrid } from './FormGrid';
+import { fieldLayout } from './fieldLayout';
 
 /**
  * Props for the SwitchField component.
@@ -21,6 +23,8 @@ export type SwitchFieldProps<T extends Field<boolean>> = {
 	disabled?: boolean;
 	/** Additional action to performed on changing the value */
 	onChange?: (checked: boolean) => void;
+	/** Forces the grid layout on/off; by default follows the parent FormGrid */
+	grid?: boolean;
 };
 
 /**
@@ -33,8 +37,10 @@ export type SwitchFieldProps<T extends Field<boolean>> = {
  */
 export function SwitchField<T extends Field<boolean>>({
 	field,
+	grid,
 	...props
 }: SwitchFieldProps<T>) {
+	const l = fieldLayout(useFormGrid(grid));
 	// --- shared state
 	const [value, setValue] = useField(field);
 	const disabled =
@@ -53,15 +59,12 @@ export function SwitchField<T extends Field<boolean>>({
 
 	// --- rendering
 	return visible ? (
-		<div className={cn('flex', props.className)}>
+		<div className={cn(l.root, props.className)}>
 			<Label
-				className={cn(
-					'mr-4 flex w-cardlabels flex-col justify-center text-right font-light sm:w-smcardlabels',
-					props.labelClassName,
-				)}
+				className={cn(l.label, props.labelClassName)}
 				value={props.label}
 			/>
-			<div className="ksm:w-smcardvalues flex w-cardvalues">
+			<div className={l.value}>
 				<Switch
 					{...props}
 					key={`switch-${value ? '1' : '0'}`}

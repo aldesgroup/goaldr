@@ -1,6 +1,6 @@
 {
 	"editor.formatOnSave": true,
-	"biome.lsp.bin": "node_modules/.bin/biome",
+	"biome.lsp.bin": "web/node_modules/.bin/biome",
 	"[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
 	"[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
 	"[typescript]": { "editor.defaultFormatter": "biomejs.biome" },

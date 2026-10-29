@@ -4,6 +4,8 @@ import { cn, Label } from '../base';
 import { type Field, type fieldDisplayMode, useField } from '../carots';
 // import { getColors } from '../styling';
 import { Slider } from '../ui/slider';
+import { useFormGrid } from './FormGrid';
+import { fieldLayout } from './fieldLayout';
 
 /**
  * Props for the SliderField component.
@@ -34,6 +36,8 @@ export type SliderFieldProps<T extends Field<number>> = {
 	leftIcon?: LucideIcon;
 	/** The right icon to display next to the slider */
 	rightIcon?: LucideIcon;
+	/** Forces the grid layout on/off; by default follows the parent FormGrid */
+	grid?: boolean;
 };
 
 // function CurrentStep({
@@ -64,6 +68,7 @@ export function SliderField<T extends Field<number>>({
 	field,
 	...props
 }: SliderFieldProps<T>) {
+	const l = fieldLayout(useFormGrid(props.grid));
 	// shared state
 	const [fieldValue, setFieldValue] = useField(field);
 
@@ -101,15 +106,12 @@ export function SliderField<T extends Field<number>>({
 	if (!visible) return null;
 
 	return (
-		<div className={cn('my-1 flex w-full', props.className)}>
+		<div className={cn('my-1', l.root, props.className)}>
 			<Label
-				className={cn(
-					'w-cardlabels sm:w-smcardlabels mr-4 flex flex-col justify-center text-right font-light',
-					props.labelClassName,
-				)}
+				className={cn(l.label, props.labelClassName)}
 				value={props.label}
 			/>
-			<div className="w-cardvalues sm:w-smcardvalues flex min-w-40 flex-1 items-center">
+			<div className={cn(l.value, 'min-w-40')}>
 				{props.leftIcon && <props.leftIcon className="mr-2" />}
 				<Slider
 					min={min}

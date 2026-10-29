@@ -1,14 +1,20 @@
-import { Label } from '../base';
+import { cn, Label } from '../base';
 import { type Field, useField } from '../carots';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { useFormGrid } from './FormGrid';
+import { fieldLayout } from './fieldLayout';
 
 export function RadioGroupField<T extends Field<any>>({
-	// label,
+	label,
 	field,
+	grid,
 }: {
-	// label: string;
+	label: string;
 	field: T;
+	/** Forces the grid layout on/off; by default follows the parent FormGrid */
+	grid?: boolean;
 }) {
+	const l = fieldLayout(useFormGrid(grid));
 	// getting the configured items from the atom
 	const [value, setValue] = useField(field);
 	const visible = field.visible ? field.visible() : true;
@@ -23,20 +29,24 @@ export function RadioGroupField<T extends Field<any>>({
 	return (
 		visible &&
 		field.options && (
-			<div className="flex">
+			<div className={l.root}>
+				<Label className={l.label} value={label} />
+
 				{/* @ts-ignore: the RadioGroup's value is a string al'right, but not the field's inner value, which needs a number! */}
-				<RadioGroup
-					value={value.toString()}
-					onValueChange={(val: string) => setValue(parseInt(val, 10))}
-					disabled={disabled}
-				>
-					{field.options.map((option) => (
-						<div className="my-0.5 flex" key={option.value.toString()}>
-							<RadioGroupItem value={option.value.toString()} />
-							<Label className="ml-3 font-light" value={option.label} />
-						</div>
-					))}
-				</RadioGroup>
+				<div className={l.value}>
+					<RadioGroup
+						value={value.toString()}
+						onValueChange={(val: string) => setValue(parseInt(val, 10))}
+						disabled={disabled}
+					>
+						{field.options.map((option) => (
+							<div className="my-0.5 flex" key={option.value.toString()}>
+								<RadioGroupItem value={option.value.toString()} />
+								<Label className="ml-3 font-light" value={option.label} />
+							</div>
+						))}
+					</RadioGroup>
+				</div>
 			</div>
 		)
 	);

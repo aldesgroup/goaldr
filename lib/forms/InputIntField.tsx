@@ -2,15 +2,21 @@ import { Label } from '../base';
 import { type Field, useField } from '../carots';
 import { Button as Rawbutton } from '../ui/button';
 import { Input } from '../ui/input';
+import { useFormGrid } from './FormGrid';
+import { fieldLayout } from './fieldLayout';
 
 export function InputIntField<T extends Field<any>>({
 	label,
 	field,
+	grid,
 	...props
 }: {
 	label: string;
 	field: T;
+	/** Forces the grid layout on/off; by default follows the parent FormGrid */
+	grid?: boolean;
 } & React.ComponentProps<'input'>) {
+	const l = fieldLayout(useFormGrid(grid));
 	// getting the configured items from the atom
 	const [value, setValue] = useField(field);
 	const disabled = field.disabled ? field.disabled() : false;
@@ -34,12 +40,9 @@ export function InputIntField<T extends Field<any>>({
 	// rendering
 	return (
 		visible && (
-			<div className="flex">
-				<Label
-					className="w-cardlabels sm:w-smcardlabels mr-4 flex flex-col justify-center text-right font-light"
-					value={label}
-				/>
-				<div className="w-cardvalues sm:w-smcardvalues flex">
+			<div className={l.root}>
+				<Label className={l.label} value={label} />
+				<div className={l.value}>
 					<Rawbutton
 						type="button"
 						className="border-devotion-action border-opacity-50 bg-devotion-grey text-devotion-action hover:bg-devotion-pressed w-10 border text-lg font-bold"

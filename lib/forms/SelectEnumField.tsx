@@ -9,6 +9,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '../ui/select';
+import { useFormGrid } from './FormGrid';
+import { fieldLayout } from './fieldLayout';
 
 function SelectEnumOption(props: {
 	value: number;
@@ -30,10 +32,14 @@ function SelectEnumOption(props: {
 export function SelectEnumField<T extends Field<any>>({
 	label,
 	field,
+	grid,
 }: {
 	label: string;
 	field: T;
+	/** Forces the grid layout on/off; by default follows the parent FormGrid */
+	grid?: boolean;
 }) {
+	const l = fieldLayout(useFormGrid(grid));
 	// getting the configured items from the atom
 	const [value, setValue] = useField(field);
 	const visible = field.visible ? field.visible() : true;
@@ -48,12 +54,9 @@ export function SelectEnumField<T extends Field<any>>({
 	return (
 		visible &&
 		field.options && (
-			<div className="flex">
-				<Label
-					className="mr-4 flex w-cardlabels flex-col justify-center text-right font-light sm:w-smcardlabels"
-					value={label}
-				/>
-				<div className="w-cardvalues sm:w-smcardvalues">
+			<div className={l.root}>
+				<Label className={l.label} value={label} />
+				<div className={l.value}>
 					{/* @ts-ignore: the Select's value is a string al'right, but not the field's inner value, which needs a number! */}
 					<Select
 						value={value.toString()}

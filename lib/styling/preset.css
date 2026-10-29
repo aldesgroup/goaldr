@@ -94,6 +94,14 @@
 	width: 245px;
 }
 
+/* Fixed label / value widths for form fields used outside a FormGrid */
+@utility w-cardlabels {
+	width: 12rem;
+}
+@utility w-smcardlabels {
+	width: 12rem;
+}
+
 @layer base {
 	:root {
 		--background: oklch(1 0 0);
